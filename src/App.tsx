@@ -1,11 +1,13 @@
 import { Canvas } from "@react-three/fiber";
-import { StartPage } from "@/components";
+import { Experience } from "@/components";
+import { SoftShadows } from "@react-three/drei";
 
 function App() {
   return (
-    <Canvas shadows camera={{ position: [3, 3, 3], fov: 30 }}>
+    <Canvas shadows camera={{ position: [30, 30, 0], fov: 30 }}>
       <color attach="background" args={["#ececec"]} />
-      <StartPage />
+      <SoftShadows size={32}/>
+      <Experience />
     </Canvas>
   );
 }
