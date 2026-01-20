@@ -1,7 +1,14 @@
 import { OrbitControls, Environment } from "@react-three/drei";
+import { onPlayerJoin, insertCoin, isHost, myPlayer } from "playroomkit";
 import Map from "./Map";
+import {useEffect} from "react"
+
 
 export const Experience = () => {
+
+  useEffect(() => {}, []);
+
+  
   return (
     <>
       <directionalLight
