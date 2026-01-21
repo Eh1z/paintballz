@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
-import {OperatorCharacter} from "./OperatorCharacter";
+import { OperatorCharacter } from "./OperatorCharacter";
 import { Joystick } from "playroomkit";
 import { Group } from "three";
+import { CapsuleCollider, RigidBody } from "@react-three/rapier";
 
 interface CharacterControlsProps {
   state: any;
@@ -22,12 +23,16 @@ const CharacterControls = ({
 
   return (
     <group ref={group} {...props}>
-      <group ref={character}>
-        <OperatorCharacter
-          color={state.state.profile?.color}
-          animation={animation}
-        />
-      </group>
+      <RigidBody colliders={false}>
+        {" "}
+        <group ref={character}>
+          <OperatorCharacter
+            color={state.state.profile?.color}
+            animation={animation}
+          />
+        </group>
+        <CapsuleCollider args={[0.7, 0.6]} position={[0, 1.28, 0]}/>
+      </RigidBody>
     </group>
   );
 };
