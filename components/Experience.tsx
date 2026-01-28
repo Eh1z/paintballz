@@ -49,6 +49,12 @@ export const Experience = () => {
     });
   }, []);
 
+  useEffect(() => {
+  console.log(`Total players: ${players.length}`);
+  players.forEach((p, i) => {
+    console.log(`Player ${i}:`, p.state.id, p.state.state.profile?.color);
+  });
+}, [players]);
   return (
     <>
       <directionalLight
@@ -71,7 +77,7 @@ export const Experience = () => {
 
       {players.map((player: Player, index: number) => (
         <CharacterControls
-        key={index}
+      key={player.state.id} 
           position-x={index * 2}
           state={player.state}
           joystick={player.joystick}

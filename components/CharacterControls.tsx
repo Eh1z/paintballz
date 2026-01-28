@@ -20,6 +20,7 @@ const CharacterControls = ({
   const group = useRef<Group>(null);
   const character = useRef<Group>(null);
   const [animation, setAnimation] = useState<string>("Idle");
+    console.log('CharacterControls rendered!', state.state.profile?.color);
 
   return (
     <group ref={group} {...props}>

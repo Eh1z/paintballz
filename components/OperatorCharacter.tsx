@@ -60,26 +60,79 @@ export function OperatorCharacter({
   useEffect(() => {
     // HIDING NON-SELECTED WEAPONS
     WEAPONS.forEach((wp) => {
-      if (nodes[wp]) {
-        nodes[wp].visible = wp === weapon;
-      }
+      const isCurrentWeapon = wp === weapon;
+      nodes[wp].visible = isCurrentWeapon;
     });
 
-    // ASSIGNING CHARACTER COLOR AND SHADOWS
-    clone.traverse((child) => {
+    // ASSIGNING CHARACTER COLOR
+    nodes.Body.traverse((child) => {
+      if (child.isMesh && child.material.name === "Character_Main") {
+        child.material = playerColorMaterial;
+      }
       if (child.isMesh) {
-        if (child.material?.name === "Character_Main") {
-          child.material = playerColorMaterial;
-        }
         child.castShadow = true;
         child.receiveShadow = true;
       }
     });
-  }, [nodes, clone, weapon, playerColorMaterial]);
+    nodes.Head.traverse((child) => {
+      if (child.isMesh && child.material.name === "Character_Main") {
+        child.material = playerColorMaterial;
+      }
+    });
+    clone.traverse((child) => {
+      if (child.isMesh && child.material.name === "Character_Main") {
+        child.material = playerColorMaterial;
+      }
+      if (child.isMesh) {
+        child.castShadow = true;
+      }
+    });
+  }, [nodes, clone]);
 
   return (
     <group {...props} dispose={null} ref={group}>
-      <primitive object={clone} />
+      <group name="Scene">
+        <group name="CharacterArmature">
+          <primitive object={nodes.Root} />
+          <group name="Body_1">
+            <skinnedMesh
+              name="Cube004"
+              geometry={nodes.Cube004.geometry}
+              material={materials.Skin}
+              skeleton={nodes.Cube004.skeleton}
+              castShadow
+            />
+            <skinnedMesh
+              name="Cube004_1"
+              geometry={nodes.Cube004_1.geometry}
+              material={materials.DarkGrey}
+              skeleton={nodes.Cube004_1.skeleton}
+              castShadow
+            />
+            <skinnedMesh
+              name="Cube004_2"
+              geometry={nodes.Cube004_2.geometry}
+              material={materials.Pants}
+              skeleton={nodes.Cube004_2.skeleton}
+              castShadow
+            />
+            <skinnedMesh
+              name="Cube004_3"
+              geometry={nodes.Cube004_3.geometry}
+              material={playerColorMaterial}
+              skeleton={nodes.Cube004_3.skeleton}
+              castShadow
+            />
+            <skinnedMesh
+              name="Cube004_4"
+              geometry={nodes.Cube004_4.geometry}
+              material={materials.Black}
+              skeleton={nodes.Cube004_4.skeleton}
+              castShadow
+            />
+          </group>
+        </group>
+      </group>
     </group>
   );
 }
